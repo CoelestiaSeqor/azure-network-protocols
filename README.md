@@ -42,83 +42,74 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 </p>
 <p>
 
-1. Set up an Azure subscription: If you don't already have an Azure subscription, sign up for one at https://azure.microsoft.com/ and create a new account.
+Part 1: Create our Resources
+---------------------------
+1. Create a Resource Group.
+2. Create a Windows 10 Virtual Machine (VM) in the previously created Resource Group, allowing it to create a new Virtual Network (Vnet) and Subnet.
+3. Create a Linux (Ubuntu) VM in the same Resource Group and Vnet as the Windows 10 VM.
+4. Observe your Virtual Network within Network Watcher.
 
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 
-2. Create Azure Virtual Machines (VMs): Deploy one or more Azure VMs that you'll use to observe network traffic. Ensure that the VMs are running and properly configured.
+Part 2: Observe ICMP Traffic
+---------------------------
+1. Use Remote Desktop to connect to your Windows 10 VM.
+2. Install Wireshark within your Windows 10 VM.
+3. Open Wireshark and filter for ICMP traffic only.
+4. Retrieve the private IP address of the Ubuntu VM and attempt to ping it from within the Windows 10 VM.
+5. Observe ping requests and replies within Wireshark.
+6. From the Windows 10 VM, open the command line or PowerShell and attempt to ping a public website (e.g., www.google.com) and observe the traffic in Wireshark.
+7. Initiate a perpetual/non-stop ping from your Windows 10 VM to your Ubuntu VM.
+8. Open the Network Security Group of your Ubuntu VM and disable incoming (inbound) ICMP traffic.
+9. Observe the ICMP traffic in Wireshark and the command line Ping activity from the Windows 10 VM.
+10. Re-enable ICMP traffic for the Network Security Group of your Ubuntu VM.
+11. Observe the ICMP traffic in Wireshark and the command line Ping activity (should start working).
+12. Stop the ping activity.
 
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 
-3. Install and configure Wireshark: Wireshark is a network protocol analyzer that allows you to capture and analyze network traffic. Install Wireshark on your local machine or on a separate VM.
+
+Part 3: Observe SSH Traffic
+---------------------------
+1. Filter Wireshark for SSH traffic only.
+2. From your Windows 10 VM, "SSH into" your Ubuntu VM using its private IP address.
+3. Type commands (username, password, etc.) into the SSH connection and observe the SSH traffic in Wireshark.
+4. Exit the SSH connection by typing 'exit' and pressing [Enter].
 
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 
-4. Capture network traffic: Launch Wireshark on your local machine or the VM where it's installed. Select the network interface that is connected to the same network as your Azure VMs. Start capturing network traffic.
+Part 4: Observe DHCP Traffic
+---------------------------
+1. Filter Wireshark for DHCP traffic only.
+2. From your Windows 10 VM, attempt to issue a new IP address to the VM from the command line (e.g., ipconfig /renew).
+3. Observe the DHCP traffic appearing in Wireshark.
 
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 
-5. Filter traffic for Azure VMs: Apply filters in Wireshark to only capture traffic related to your Azure VMs. You can use filters based on IP addresses, ports, or other criteria to narrow down the captured traffic.
+Part 5: Observe DNS Traffic
+---------------------------
+1. Filter Wireshark for DNS traffic only.
+2. From your Windows 10 VM's command line, use nslookup to see the IP addresses of www.google.com and disney.com.
+3. Observe the DNS traffic shown in Wireshark.
 
 <p>
 <img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 
-6. Analyze the captured traffic: Review the captured packets in Wireshark to observe the network traffic to and from your Azure VMs. You can analyze protocols, source and destination IP addresses, ports, and any other relevant information.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-7. Experiment with Network Security Groups (NSGs): Network Security Groups are an Azure networking feature that allows you to control traffic flow and implement security rules. In the Azure portal, navigate to the NSG settings for your Azure VMs.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-8. Create and modify NSG rules: Experiment with creating and modifying NSG rules to control inbound and outbound traffic to your Azure VMs. You can define rules based on source IP addresses, ports, protocols, and other parameters.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-9. Observe the effects of NSG rules: After applying NSG rules, monitor the network traffic using Wireshark. Observe how the rules affect the flow of packets, which packets are allowed or blocked, and any other changes in the network behavior.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-10. Evaluate network security: Analyze the effectiveness of the NSG rules in enhancing network security. Consider factors such as the ability to block unwanted traffic, protect sensitive services, and enforce access control.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-11. Document your findings: Take notes during the tutorial and document your observations, configurations, and any insights gained from analyzing the network traffic and experimenting with NSG rules.
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-
-12. Conclusion and further learning: Conclude the tutorial by summarizing your findings and highlighting any areas for further exploration or learning related to network traffic analysis and network security in Azure.
-
-Remember to refer to official Azure documentation or additional resources for detailed instructions on specific steps and concepts.
+Part 6: Observe RDP Traffic
+---------------------------
+1. Filter Wireshark for RDP traffic only (tcp.port == 3389).
+2. Observe the constant stream of traffic. The RDP protocol continuously transmits data between the computers, resulting in non-stop traffic.
