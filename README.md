@@ -25,6 +25,16 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 
 <h2>High-Level Steps</h2>
 
+1. Design and Planning
+2. Azure Virtual Network (VNet) Setup
+3. Azure Virtual Machine Deployment
+4. AD DS Installation and Configuration
+5. Additional Domain Controllers
+6. Networking and DNS Configuration
+7. Connectivity between On-Premises and Azure
+8. Security and Access Control
+9. Monitoring and Maintenance
+
 <h2>Actions and Observations</h2>
 
 <p>
